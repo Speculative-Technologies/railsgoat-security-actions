@@ -4,27 +4,23 @@ on:
   push:
     branches:
       - main
+      - master
   pull_request:
     branches:
       - main
+      - master
 
 jobs:
-  build-and-run-docker:
+  build:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Build and run Docker container
-      run: |
-        docker build -t my-rails-app .
-        docker run -d -p 3000:3000 my-rails-app
-
-    - name: Wait for Rails to start
-      run: |
-        sleep 30  # Adjust this as needed
-
+    - name: ZAP Full Scan
+      # You may pin to the exact commit or the version.
+      # uses: zaproxy/action-full-scan@e058236b1221595033527ccc8a79959c7396d53f
+      uses: zaproxy/action-full-scan@v0.7.0
+      with:
+        # Target URL
+        target: https://b97e-189-217-94-223.ngrok-free.app/
   brakeman:
     runs-on: ubuntu-latest
 
@@ -45,27 +41,6 @@ jobs:
         title: Brakeman Vulnerabilities Found
         body: |
           Brakeman vulnerabilities were found. Please review the `brakeman-output.json` file for details.
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  owasp-zap:
-    needs: build-and-run-docker
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: OWASP ZAP Scan
-      uses: zaproxy/action-full-scan@v0.7.0
-      with:
-        target: 'http://localhost:3000'
-
-    - name: Create Issue if Vulnerabilities Found
-      if: always()
-      uses: octokit/request-action@v2.x
-      with:
-        route: POST /repos/${{ github.repository }}/issues
-        title: OWASP ZAP Vulnerabilities Found
-        body: |
-          OWASP ZAP vulnerabilities were found. Please review the scan results for details.
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
