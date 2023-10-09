@@ -1,0 +1,7 @@
+- name: ZAP Full Scan
+  # You may pin to the exact commit or the version.
+  # uses: zaproxy/action-full-scan@e058236b1221595033527ccc8a79959c7396d53f
+  uses: zaproxy/action-full-scan@v0.7.0
+  with:
+    # Target URL
+    target: https://b97e-189-217-94-223.ngrok-free.app/
