@@ -20,7 +20,7 @@ jobs:
       uses: zaproxy/action-full-scan@v0.7.0
       with:
         # Target URL
-        target: https://b97e-189-217-94-223.ngrok-free.app/
+        target: https://0a95-187-188-9-213.ngrok-free.app/
   brakeman:
     runs-on: ubuntu-latest
 

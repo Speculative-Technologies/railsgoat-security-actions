@@ -2,8 +2,7 @@
 Railsgoat::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
   # config.hosts << '.svc.cluster.local'
- config.hosts << "b97e-189-217-94-223.ngrok-free.app" 
-  # In the development environment your application's code is reloaded on
+ config.hosts << "0a95-187-188-9-213.ngrok-free.app" # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.
   config.cache_classes = false
